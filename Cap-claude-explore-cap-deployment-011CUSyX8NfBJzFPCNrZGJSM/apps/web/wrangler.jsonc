@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cap-web",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-05-05",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "5aa05e6013ed4b819e9ad98e516d4d6e",
+      "localConnectionString": "mysql://root:@localhost:3306/planetscale"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R2_VIDEOS",
+      "bucket_name": "cap-videos-prod"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}
