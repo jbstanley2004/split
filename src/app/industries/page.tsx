@@ -1,0 +1,197 @@
+"use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { useRef } from "react";
+
+export default function IndustriesPage() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const industries = [
+    {
+      title: "Restaurants",
+      description:
+        "Enhance the dining experience with flexible payment options, from tableside payments to online ordering.",
+      image: "/industries/restaurants.webp",
+    },
+    {
+      title: "Auto Repair",
+      description:
+        "From the front desk to the service bay, accept payments easily and get customers back on the road faster.",
+      image: "/industries/car_repair.webp",
+    },
+    {
+      title: "Retail & Clothing",
+      description:
+        "Boost sales and improve customer flow with our integrated POS and payment solutions for clothing boutiques.",
+      image: "/industries/clothing.webp",
+    },
+    {
+      title: "Pharmacies & Healthcare",
+      description:
+        "Provide a seamless and secure payment process for patients with our HIPAA-compliant solutions.",
+      image: "/industries/pharmacy.webp",
+    },
+    {
+      title: "Home Goods & Furniture",
+      description:
+        "Support big-ticket purchases and manage complex inventories with our versatile retail payment systems.",
+      image: "/industries/home_goods_furniture.webp",
+    },
+    {
+      title: "Salons & Spas",
+      description:
+        "Let clients book and pay with ease, so you can focus on providing exceptional beauty and wellness services.",
+      image: "/industries/hair_beauty.webp",
+    },
+    {
+      title: "Hotels & Hospitality",
+      description:
+        "From check-in to check-out, offer guests a smooth and secure payment experience for their stay.",
+      image: "/industries/hotels.webp",
+    },
+    {
+      title: "Franchises",
+      description:
+        "Standardize payment processing across all your locations with our scalable and easy-to-manage franchise solutions.",
+      image: "/industries/franchise.webp",
+    },
+    {
+      title: "Convenience Stores",
+      description:
+        "Streamline checkout and manage inventory with our fast and reliable payment solutions for convenience stores.",
+      image: "/industries/convenience_store.webp",
+    },
+    {
+      title: "Professional Services",
+      description:
+        "Simplify client billing and invoicing with our secure online payment portals for professional firms.",
+      image: "/industries/professional_services.webp",
+    },
+  ];
+
+  return (
+    <main ref={ref} className="relative min-h-screen font-jetbrains text-text">
+      {/* Fixed Parallax Background */}
+      <motion.div
+        style={{ y }}
+        className="fixed inset-0 z-0"
+      >
+        <Image
+          src="/industries-hero.png"
+          alt="Industries We Serve"
+          fill
+          className="object-cover"
+          priority
+        />
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-bg/70" />
+      </motion.div>
+
+      {/* All content with relative positioning */}
+      <div className="relative z-10">
+        {/* Sticky Glass Header */}
+        <header className="sticky top-0 z-50 flex items-center justify-between px-6 md:px-10 py-6 backdrop-blur-xl bg-bg/30 border-b border-white/10">
+          <Link href="/" className="text-2xl tracking-tight lowercase text-white hover:text-white">
+            split
+          </Link>
+
+          <nav className="hidden md:flex gap-8 text-sm text-muted">
+            <a href="/#funding" className="hover:text-white transition-colors">funding</a>
+            <a href="/payments" className="hover:text-white transition-colors">payments</a>
+            <a href="/industries" className="hover:text-white transition-colors">industries</a>
+          </nav>
+
+          <Link href="/get-started" className="btn">
+            get started
+          </Link>
+        </header>
+
+        {/* Hero */}
+        <section className="px-6 md:px-10 py-32 md:py-48 min-h-[80vh] flex items-center border-b border-line/50">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-center max-w-4xl mx-auto"
+          >
+            <h1 className="text-4xl md:text-6xl leading-tight mb-6">
+              Industries We Serve
+            </h1>
+            <p className="text-muted text-lg md:text-xl mb-8">
+              We provide tailored payment solutions for a wide range of businesses.
+              Our broad partnerships and industry relationships enable us to deliver
+              the most effective and affordable services for your needs.
+            </p>
+          </motion.div>
+        </section>
+
+        {/* Industries Grid */}
+        <section className="px-6 md:px-10 py-16 md:py-24 border-b border-line/50">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {industries.map((industry, index) => (
+              <motion.div
+                key={industry.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="border border-line overflow-hidden hover:border-muted transition-colors flex flex-col bg-bg/80 backdrop-blur-sm"
+              >
+                <div className="relative h-64 w-full">
+                  <Image
+                    src={industry.image}
+                    alt={industry.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-xl font-medium mb-3">{industry.title}</h3>
+                  <p className="text-muted text-sm leading-relaxed">
+                    {industry.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="px-6 md:px-10 py-16 md:py-24 border-b border-line/50">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7 }}
+            className="text-center max-w-3xl mx-auto border border-line p-12 bg-bg/80 backdrop-blur-sm"
+          >
+            <h2 className="text-3xl md:text-4xl mb-4">Don't See Your Industry?</h2>
+            <p className="text-muted mb-8 text-lg">
+              We support many other business types, including high-risk industries.
+              Request a free comparison to see how we can help.
+            </p>
+            <Link href="/get-started" className="btn inline-block">
+              Request a Free Comparison
+            </Link>
+          </motion.div>
+        </section>
+
+        {/* Footer */}
+        <footer className="border-t border-line/50 px-6 md:px-10 py-8 text-xs text-muted flex flex-col md:flex-row items-center justify-between gap-4">
+          <div>© 2025 split payments, inc.</div>
+          <div className="flex items-center gap-6">
+            <a href="/policy">privacy</a>
+            <a href="/terms">terms</a>
+            <a href="/support">contact</a>
+          </div>
+        </footer>
+      </div>
+    </main>
+  );
+}
